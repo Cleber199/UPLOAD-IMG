@@ -12,7 +12,8 @@ const elements = {
 
 // Configuração da aplicação
 const config = {
-  apiUrl: "http://localhost:4000/pictures" // Endpoint da API
+  apiUrl: "http://localhost:4000/pictures", // Endpoint da API
+  placeholderImage: "placeholder.jpg"
   /* Colocar img Base 64*/
 };
 
@@ -216,4 +217,4 @@ async function deletePhoto(id) {
     console.error("Erro ao deletar:", error);
     showNotification("Erro ao deletar imagem", "error");
   }
-}
+};

@@ -5,21 +5,21 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 // Configurando para permitir consultas (Restritas)
-mongoose.set("strictQuery", true)
+mongoose.set("strictQuery", true);
 
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASS;
-// Função para uso no DB 
+// Função para uso no DB
 async function main() {
-  await mongoose
-    .connect
+  await mongoose.connect(
     // Link do Mongo
-    (`mongodb+srv://${dbUser}:${dbPassword}@cleber.94vel.mongodb.net/?retryWrites=true&w=majority&appName=Cleber`);
+    `mongodb+srv://${dbUser}:${dbPassword}@cleber.94vel.mongodb.net/?retryWrites=true&w=majority&appName=Cleber`
+  );
   // Exibe ao usuário que realizou a conexão
   console.log("Conectou ao banco de dados!");
 }
 // Exibe a msg ao usuário com erro
-main().catch((err) => console.log(err));
+main().catch(err => console.log(err));
 
 // Exporta a função para utilizar em outro arquivo
 module.exports = main;
