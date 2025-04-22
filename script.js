@@ -7,12 +7,12 @@ const elements = {
   uploadForm: document.getElementById("uploadForm"), // Formulário de upload
   toast: document.getElementById("toast"), // Elemento para notificação
   nameInput: document.getElementById("name"), // Input do nome da foto
-  fileInput: document.getElementById("file"), // Input do arquivo da foto
+  fileInput: document.getElementById("file") // Input do arquivo da foto
 };
 
 // Configuração da aplicação
 const config = {
-  apiUrl: "http://localhost:4000/pictures", // Endpoint da API
+  apiUrl: "http://localhost:4000/pictures" // Endpoint da API
   /* Colocar img Base 64*/
 };
 
@@ -69,7 +69,7 @@ function renderPhotoGrid(photos) {
   }
 
   // Para cada foto no array, criar um Card e adiciona ao Grid
-  photos.forEach((photo) => {
+  photos.forEach(photo => {
     const photoCard = createPhotoCardElement(photo);
     photoGrid.appendChild(photoCard);
   });
@@ -101,7 +101,7 @@ async function uploadNewPhoto(formData) {
     // Faz requisição POST para API com os dados do formulário
     const response = await fetch(config.apiUrl, {
       method: "POST",
-      body: formData,
+      body: formData
     });
 
     // Verifica se houve resposta, se não retorna erro
@@ -182,3 +182,38 @@ document.addEventListener("DOMContentLoaded", () => {
   setupEventListeners(); // Configura todos os eventos
   loadAndDisplayPhotos(); // Carrega e exibe as fotos inicias
 });
+
+function createPhotoCardElement(photo) {
+  const card = document.createElement("div");
+  card.className = "photo-card";
+
+  const imageUrl = `${config.apiUrl}/${photo._id}/image`;
+
+  card.innerHTML = `
+    <img src="${imageUrl}" alt="${photo.name}" onerror="this.onerror=null; this.src='${config.placeholderImage}'">
+    <div class="photo-info">
+      <div class="photo-name">${photo.name}</div>
+      <button class="btn-delete" onclick="deletePhoto('${photo._id}')">Deletar</button>
+    </div>
+  `;
+
+  return card;
+}
+
+async function deletePhoto(id) {
+  try {
+    const response = await fetch(`${config.apiUrl}/${id}`, {
+      method: "DELETE"
+    });
+
+    if (!response.ok) {
+      throw new Error("Erro ao deletar a imagem");
+    }
+
+    showNotification("Imagem deletada com sucesso!");
+    loadAndDisplayPhotos(); // Atualiza a lista de fotos
+  } catch (error) {
+    console.error("Erro ao deletar:", error);
+    showNotification("Erro ao deletar imagem", "error");
+  }
+}

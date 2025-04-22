@@ -14,7 +14,7 @@ exports.create = async (req, res) => {
     const picture = new Picture({
       name,
       image: file.buffer,
-      contentType: file.mimetype,
+      contentType: file.mimetype
     });
 
     // Salva a imagem no DB
@@ -61,5 +61,20 @@ exports.getImage = async (req, res) => {
   } catch (error) {
     // Caso ocorra erro, retorna para o usuario
     res.status(500).json({ message: "Erro ao buscar imagem!" });
+  }
+};
+
+exports.remove = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const picture = await Picture.findByIdAndDelete(id);
+
+    if (!picture) {
+      return res.status(404).json({ message: "Imagem não encontrada" });
+    }
+
+    res.json({ message: "Imagem deletada com sucesso!" });
+  } catch (err) {
+    res.status(500).json({ message: "Erro ao deletar imagem!" });
   }
 };
