@@ -217,4 +217,4 @@ async function deletePhoto(id) {
     console.error("Erro ao deletar:", error);
     showNotification("Erro ao deletar imagem", "error");
   }
-};
+}
