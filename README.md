@@ -31,5 +31,5 @@ ESTRUTURA DO PROJETO:
  → index.html       - Arquivo principal da aplicação
  →  style.css       - Arquivo de estilos CSS
  →  script.js       - Lógica JavaScript para interatividade
- → uploads/         - Pasta contendo as imagens utilizadas na galeria
+ →  uploads/        - Pasta contendo as imagens utilizadas na galeria
  →  README.txt      - Documentação do projeto

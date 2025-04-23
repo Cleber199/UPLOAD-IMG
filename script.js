@@ -204,7 +204,7 @@ function createPhotoCardElement(photo) {
 async function deletePhoto(id) {
   try {
     const response = await fetch(`${config.apiUrl}/${id}`, {
-      method: "DELETE"
+      method: "DELETE",
     });
 
     if (!response.ok) {
